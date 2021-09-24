@@ -1,9 +1,9 @@
 {
-    "name" : "Wat",
-    "author" : ["FlapJack"],
-    "short" : "Assist users who are hard of hearing.",
-    "description" : "Yells the previous message in a channel when a user indicates they had trouble hearing.\n\nDependencies: None",
-    "install_msg" : "What?",
-    "tags" : ["wat", "what"],
+    "name" : "Scrub",
+    "author" : ["Bilskirnir - FlapJack"],
+    "short" : "No U's anyone who uses term scrub.",
+    "description" : "No Us people.\n\nDependencies: None",
+    "install_msg" : "Scrub",
+    "tags" : ["scrub", "Scrub"],
     "end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }
