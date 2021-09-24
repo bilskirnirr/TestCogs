@@ -3,7 +3,7 @@ import discord
 
 from redbot.core import checks, Config, commands
 
-PATTERN = re.compile(r"w+h*[aou]+t+[?!]*", re.IGNORECASE)
+PATTERN = re.compile(r"scrub", re.IGNORECASE)
 
 
 class Scrub(commands.Cog):
