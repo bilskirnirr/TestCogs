@@ -77,8 +77,6 @@ class Scrub(commands.Cog):
                 author = before.author
                 if (
                     not author.bot
-                    and not author == message.author
-                    and not PATTERN.fullmatch(content)
                 ):
                     msg = f" **No U** "
                     await message.channel.send(msg, allowed_mentions=discord.AllowedMentions(users=False))
