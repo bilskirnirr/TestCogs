@@ -6,7 +6,7 @@ from redbot.core import checks, Config, commands
 PATTERN = re.compile(r"w+h*[aou]+t+[?!]*", re.IGNORECASE)
 
 
-class Wat(commands.Cog):
+class Scrub(commands.Cog):
 
     """Repeat messages when other users are having trouble hearing"""
 
@@ -22,15 +22,15 @@ class Wat(commands.Cog):
         return
 
     @commands.guild_only()
-    @commands.group(name="watignore")
+    @commands.group(name="scrubignore")
     @checks.admin_or_permissions(manage_guild=True)
-    async def watignore(self, ctx):
-        """Change Wat cog ignore settings."""
+    async def scrubignore(self, ctx):
+        """Change Scrub cog ignore settings."""
         pass
 
-    @watignore.command(name="server")
+    @scrubignore.command(name="server")
     @checks.admin_or_permissions(manage_guild=True)
-    async def _watignore_server(self, ctx):
+    async def _scrubignore_server(self, ctx):
         """Ignore/Unignore the current server"""
 
         guild = ctx.message.guild
@@ -43,9 +43,9 @@ class Wat(commands.Cog):
             await ctx.send("what? Fine, I will ignore this server.")
         await self.conf.guilds_ignored.set(guilds)
 
-    @watignore.command(name="channel")
+    @scrubignore.command(name="channel")
     @checks.admin_or_permissions(manage_guild=True)
-    async def _watignore_channel(self, ctx):
+    async def _scrubignore_channel(self, ctx):
         """Ignore/Unignore the current channel"""
 
         chan = ctx.message.channel
@@ -55,7 +55,7 @@ class Wat(commands.Cog):
             await ctx.send("wut? Ok, I will no longer ignore this channel.")
         else:
             chans.append(chan.id)
-            await ctx.send("wat? Alright, I will ignore this channel.")
+            await ctx.send("Really? Alright, I will ignore this channel.")
         await self.conf.channels_ignored.set(chans)
 
     @commands.Cog.listener()
@@ -82,7 +82,6 @@ class Wat(commands.Cog):
                     and not author == message.author
                     and not PATTERN.fullmatch(content)
                 ):
-                    emoji = "\N{CHEERING MEGAPHONE}"
-                    msg = f"{name} said, **{emoji}   {content}**"
+                    msg = f"No U"
                     await message.channel.send(msg, allowed_mentions=discord.AllowedMentions(users=False))
                     break
