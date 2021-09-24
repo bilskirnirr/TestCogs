@@ -73,16 +73,5 @@ class Scrub(commands.Cog):
             return
 
         if PATTERN.fullmatch(content[0]):
-            async for before in message.channel.history(limit=5, before=message):
-                author = before.author
-                name = author.display_name
-                content = before.clean_content
-                if (
-                    not author.bot
-                    and not author == message.author
-                    and not PATTERN.fullmatch(content)
-                ):
-                    emoji = "\N{CHEERING MEGAPHONE}"
-                    msg = f"No U"
-                    await message.channel.send(msg, allowed_mentions=discord.AllowedMentions(users=False))
-                    break
+            msg = f"No U"
+            break
