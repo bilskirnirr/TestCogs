@@ -6,7 +6,7 @@ from redbot.core import checks, Config, commands
 PATTERN = re.compile(r"w+h*[aou]+t+[?!]*", re.IGNORECASE)
 
 
-class Scrub(commands.Cog):
+class Srcub(commands.Cog):
 
     """Repeat messages when other users are having trouble hearing"""
 
@@ -22,7 +22,7 @@ class Scrub(commands.Cog):
         return
 
     @commands.guild_only()
-    @commands.group(name="scrubignore")
+    @commands.group(name="srcubignore")
     @checks.admin_or_permissions(manage_guild=True)
     async def scrubignore(self, ctx):
         """Change scrub cog ignore settings."""
@@ -52,7 +52,7 @@ class Scrub(commands.Cog):
         chans = await self.conf.channels_ignored()
         if chan.id in chans:
             chans.remove(chan.id)
-            await ctx.send("Really? Ok, I will no longer ignore this channel.")
+            await ctx.send("Reaaally? Ok, I will no longer ignore this channel.")
         else:
             chans.append(chan.id)
             await ctx.send("Really? Alright, I will ignore this channel.")
@@ -73,5 +73,15 @@ class Scrub(commands.Cog):
             return
 
         if PATTERN.fullmatch(content[0]):
-            msg = f"No U"
-            break
+            async for before in message.channel.history(limit=5, before=message):
+                author = before.author
+                name = author.display_name
+                content = before.clean_content
+                if (
+                    not author.bot
+                    and not author == message.author
+                    and not PATTERN.fullmatch(content)
+                ):
+                    msg = No U
+                    await message.channel.send(msg, allowed_mentions=discord.AllowedMentions(users=False))
+                    break
