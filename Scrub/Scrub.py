@@ -6,7 +6,7 @@ from redbot.core import checks, Config, commands
 PATTERN = re.compile(r"w+h*[aou]+t+[?!]*", re.IGNORECASE)
 
 
-class Srcub(commands.Cog):
+class Wat(commands.Cog):
 
     """Repeat messages when other users are having trouble hearing"""
 
@@ -22,15 +22,15 @@ class Srcub(commands.Cog):
         return
 
     @commands.guild_only()
-    @commands.group(name="srcubignore")
+    @commands.group(name="watignore")
     @checks.admin_or_permissions(manage_guild=True)
-    async def scrubignore(self, ctx):
-        """Change scrub cog ignore settings."""
+    async def watignore(self, ctx):
+        """Change Wat cog ignore settings."""
         pass
 
-    @scrubignore.command(name="server")
+    @watignore.command(name="server")
     @checks.admin_or_permissions(manage_guild=True)
-    async def _scrubignore_server(self, ctx):
+    async def _watignore_server(self, ctx):
         """Ignore/Unignore the current server"""
 
         guild = ctx.message.guild
@@ -43,19 +43,19 @@ class Srcub(commands.Cog):
             await ctx.send("what? Fine, I will ignore this server.")
         await self.conf.guilds_ignored.set(guilds)
 
-    @scrubignore.command(name="channel")
+    @watignore.command(name="channel")
     @checks.admin_or_permissions(manage_guild=True)
-    async def _scrubignore_channel(self, ctx):
+    async def _watignore_channel(self, ctx):
         """Ignore/Unignore the current channel"""
 
         chan = ctx.message.channel
         chans = await self.conf.channels_ignored()
         if chan.id in chans:
             chans.remove(chan.id)
-            await ctx.send("Reaaally? Ok, I will no longer ignore this channel.")
+            await ctx.send("wut? Ok, I will no longer ignore this channel.")
         else:
             chans.append(chan.id)
-            await ctx.send("Really? Alright, I will ignore this channel.")
+            await ctx.send("wat? Alright, I will ignore this channel.")
         await self.conf.channels_ignored.set(chans)
 
     @commands.Cog.listener()
@@ -82,6 +82,7 @@ class Srcub(commands.Cog):
                     and not author == message.author
                     and not PATTERN.fullmatch(content)
                 ):
-                    msg = No U
+                    emoji = "\N{CHEERING MEGAPHONE}"
+                    msg = f"{name} said, **{emoji}   {content}**"
                     await message.channel.send(msg, allowed_mentions=discord.AllowedMentions(users=False))
                     break
